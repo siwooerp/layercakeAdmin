@@ -7,9 +7,7 @@
 ;
 (function ($, window, document, undefined) {
     'use strict';
-    // 分支1
-    // 分支2
-    // 分支3
+
     /************
      * 绑定键值改变监控
      * jQuery 事件valuechange
