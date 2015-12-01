@@ -382,6 +382,7 @@
 
         });
         // 修改分支
+        // 当在 github 里选择 unloadPic分支时
     };
 
 })(window.jQuery, window, document);
