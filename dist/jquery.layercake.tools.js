@@ -7,7 +7,7 @@
 ;
 (function ($, window, document, undefined) {
     'use strict';
-
+    // 分支1
     /************
      * 绑定键值改变监控
      * jQuery 事件valuechange
@@ -381,8 +381,7 @@
             }, options);
 
         });
-        // 是否是分支了？
-        // 现在在unloadPic分支
+
     };
 
 })(window.jQuery, window, document);
