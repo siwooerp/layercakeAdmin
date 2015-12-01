@@ -382,6 +382,7 @@
 
         });
         // 修改分支
+        // 这个是unloadPicUpdate分支
     };
 
 })(window.jQuery, window, document);
