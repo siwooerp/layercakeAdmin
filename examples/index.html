@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layercake JS工具集 测试</title>
+
+
+
+    <link rel="stylesheet" href="../dist/layercake.tools.css" />
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Fjquery.layercake.tools.min.js"></script>
+
+
+</head>
+<body style="width: 1920px; height: 1000px;">
+<div style="width: 1000px; height: 300px;">
+    <img src="images/pic1-min.jpg" data-max-pic="images/pic1.jpg" style="margin: 20px; float: left;"/>
+    <img src="images/pic2-min.jpg" data-max-pic="images/pic2.jpg" style="margin: 20px; float: left;"/>
+</div>
+<div style="width: 200px; height:50px; margin-left: 300px;">
+    <div id="picList" data-min-pic="images/pic1-min.jpg,images/pic2-min.jpg,images/pic1-min.jpg,images/pic2-min.jpg" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
+</div>
+
+<script>
+    //console.log('match', '9.112233'.match(/\.[0-9]+/g)[0].length);
+    //console.log($.SW.NUM.addNum([13.3, 5.9, 8.4, 7.6]));
+    console.log('add', $.SW.NUM.add('13.2', '13.333333333333'));
+    console.log('sub', $.SW.NUM.sub(13.333333333, 12.3333));
+    console.log('mul', $.SW.NUM.mul(13.333333333, 12.3333));
+    console.log('div', $.SW.NUM.div(13.333333333, 12.3333));
+    console.log('div', $.SW.NUM.div(10000, 3));
+    console.log('div', $.SW.NUM.div(10000, 4));
+    console.log('toDecimal', $.SW.NUM.toDecimal('17%'));
+    console.log('toPercentFormat', $.SW.NUM.toPercentFormat(0.17));
+
+    $('img').zoomPic({
+        maxData: 'max-pic'
+    });
+
+    $('#picList').zoomPic();
+</script>
+
+</body>
+</html>
