@@ -1,9 +1,8 @@
-# layercakeAdmin
-layercake PC端<br/>
+# layercake
 
 cdn地址：<br/>
-http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Fjquery.layercake.tools.min.js<br/>
-http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
+http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/jquery.layercake.tools.min.js<br/>
+http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 请在页面内引用此JS和CSS
 
 > layercake内部系统用的jQuery插件<br/>
@@ -11,6 +10,7 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
 > 数字格式化的效果包含了小数点后8位的处理
 
 * 监控输入框及单选按钮等值的变更
+* 防止按钮重复点击
 * 弹出窗口
 * 点击小图查看大图
 * 数字格式化
@@ -28,13 +28,45 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
 
 ---------------------------------
 
+### 防止按钮重复点击
+> 使用方法
+
+    $('#btn').disableBtn({
+        time: 1000 // 按钮的失效时间
+    });
+    
+
+> 参数列表
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+<th>可填值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time</td>
+<td>按钮的失效时间</td>
+<td>1000[毫秒]</td>
+<td>数值</td>
+</tr>
+</tbody>
+</table>
+
+---------------------------------
+
 ### 弹出窗口
 > 使用方法
 
     $('.winOpen').winOpen({
         url:'http://www.baidu.com/',
         width:100,
-        height:100
+        height:100,
+        winName:'' // 弹出窗的名称，可以不填
     });
     
     <div class="tools" data-win-url="1.jsp"></div>
@@ -45,7 +77,8 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
         	return $(this).data('win-url');
         },
         width:100,
-        height:100
+        height:100,
+        winName:'' // 弹出窗的名称，可以不填
     });
     
 
@@ -79,6 +112,12 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
 <td>600</td>
 <td>数字</td>
 </tr>
+<tr>
+<td>winName</td>
+<td>弹出窗名称</td>
+<td>空</td>
+<td>字符串</td>
+</tr>
 </tbody>
 </table>
 
@@ -97,11 +136,12 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery%2Flayercake.tools.min.css<br/>
     
     <img src="images/pic1-min.jpg" data-max-pic="images/pic1.jpg" style="margin: 20px; float: left;"/>
     <img src="images/pic2-min.jpg" data-max-pic="images/pic2.jpg" style="margin: 20px; float: left;"/>
+    // 当点击小图显示大图时，只要有maxData或maxImg就可以了
     $('img').zoomPic({
         maxData: 'max-pic'
     });
     
-    // 如要展示多张图，请用逗号分隔
+    // 如要展示多张图，请用逗号分隔。并且 maxData和minData 或 maxImg和minImg 必须有一组是有值的
     <div id="picList" data-min-pic="images/pic1-min.jpg,images/pic2-min.jpg,images/pic1-min.jpg,images/pic2-min.jpg" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
     $('#picList').zoomPic();
 
