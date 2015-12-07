@@ -195,7 +195,8 @@
             var me = this;
             me.opt = $.extend({}, {
                 width: 1104,
-                height: 600
+                height: 600,
+                winName: ''
             }, options);
 
             if (typeof me.opt.url !== 'undefined') {
@@ -204,9 +205,11 @@
                     // 屏幕分辨率的高 window.screen.width
                     me.opt.left = (window.screen.width - 10 - me.opt.width) / 2;
                 }
+                (window.screen.height - 30 - me.opt.height) <= 0 && (me.opt.height = (window.screen.height - 30 - me.opt.height));
                 if (me.opt && typeof me.opt.top === 'undefined') {
                     me.opt.top = (window.screen.height - 30 - me.opt.height) / 2;
                 }
+
                 winOpenFn(this, me.opt);
             }
         });
@@ -217,13 +220,14 @@
          * @param meOpt
          */
         function winOpenFn($this, meOpt) {
-            $($this).on('click', function (event) {
+            $($this).off('click').on('click', function (event) {
                 event.stopPropagation();
+
                 if (tools.isFunction(meOpt.url)) {
                     meOpt.url = meOpt.url.call($this);
                 }
                 // window.open 是相对于整个屏幕的 left top
-                window.open(meOpt.url, '', 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+                window.open(meOpt.url, meOpt.winName, 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
             });
         }
     };
@@ -268,7 +272,7 @@
          * 显示大图
          */
         function showMaxPic(imgUrl) {
-            $(document.body).append('<div class="zoom-pic zoom-radius zoom-shadow" id="zoom-pic"><span id="zoom-loading">正在加载图片</span><img src="' + imgUrl + '" /></div>');
+            $(document.body).find('.bd').append('<div class="zoom-pic zoom-radius zoom-shadow" id="zoom-pic"><span id="zoom-loading">正在加载图片</span><img src="' + imgUrl + '" /></div>');
             var img = new Image();
             img.onload = function () {
                 picResize($('#zoom-pic'), {width: img.width, height: img.height});
@@ -323,7 +327,7 @@
                 left: $(me).offset().left + 'px',
                 top: ($(me).offset().top + $(me).scrollTop() + $(me).outerHeight(true) + 5) + 'px'
             });
-            $(document.body).append(__zoomList);
+            $(document.body).find('.bd').append(__zoomList);
 
             __zoomList.on('click', 'img', function (event) {
                 event.stopPropagation();
@@ -363,7 +367,32 @@
                 }
             });
         });
+    };
 
+
+    /*******************
+     * 防止重复点击
+     * @param options
+     */
+    $.fn.disableBtn = function(options){
+        var me = this;
+        me.opt = $.extend({}, {
+            time: 1000 // 防止重复点击，按钮的失效时间
+        }, options);
+
+        return this.each(function(){
+            $(this).on('click', function(event){
+                event.stopPropagation();
+                $(this).prop('disabled', true);
+                removeDisable(this);
+            });
+        });
+
+        function removeDisable($this){
+            setTimeout(function(){
+                $($this).prop('disabled', false);
+            }, me.opt.time);
+        }
     };
 
     /****************
