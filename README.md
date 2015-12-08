@@ -26,7 +26,7 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 
     // 在JSP页面中，以下面方法书写图片代码
     
-    <img src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png" class="J_product_pic J_click_max" data-idx="商品ID" data-width="200 获取图片的尺寸">
+    <img class="J_product_pic J_click_max" data-idx="商品ID" data-width="200 获取图片的尺寸" src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png">
     
 
 > 参数列表
