@@ -9,6 +9,7 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 > 比如点击小图查看大图，在功能和效果上，只做了layercake系统特定的效果<br/>
 > 数字格式化的效果包含了小数点后8位的处理
 
+* 图片代码书写规范
 * 获取金额的繁体文字
 * 监控输入框及单选按钮等值的变更
 * 防止按钮重复点击
@@ -17,6 +18,55 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 * 数字格式化
 * 图片上传
 * 数据存储
+
+--------------------------------
+
+### 图片代码书写规范
+> 使用方法
+
+    // 在JSP页面中，以下面方法书写图片代码
+    
+    <img src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png" class="J_product_pic J_click_max" data-idx="商品ID" data-width="200 获取图片的尺寸">
+    
+
+> 参数列表
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+<th>可填值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>J_product_pic</td>
+<td>有此class 则表示启用图片代码</td>
+<td>无</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>J_click_max</td>
+<td>有此class 则表示点击小图，展示大图</td>
+<td>无</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>data-idx</td>
+<td>此处放商品ID</td>
+<td>无</td>
+<td>数值</td>
+</tr>
+<tr>
+<td>data-width</td>
+<td>表示获取图片的尺寸</td>
+<td>无</td>
+<td>数值</td>
+</tr>
+</tbody>
+</table>
 
 --------------------------------
 
