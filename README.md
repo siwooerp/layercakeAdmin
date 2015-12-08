@@ -9,6 +9,7 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 > 比如点击小图查看大图，在功能和效果上，只做了layercake系统特定的效果<br/>
 > 数字格式化的效果包含了小数点后8位的处理
 
+* 获取金额的繁体文字
 * 监控输入框及单选按钮等值的变更
 * 防止按钮重复点击
 * 弹出窗口
@@ -16,6 +17,14 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
 * 数字格式化
 * 图片上传
 * 数据存储
+
+--------------------------------
+
+### 获取金额的繁体文字
+> 使用方法
+
+    $.SW.NUM.convertCurrency('1200563');
+	// 壹佰贰拾万零伍佰陆拾叁元整
 
 --------------------------------
 
