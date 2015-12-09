@@ -180,7 +180,7 @@
              * @param currencyDigits
              * @returns {string}
              */
-            convertCurrency: function(currencyDigits){
+            convertCurrency: function (currencyDigits) {
                 var MAXIMUM_NUMBER = 99999999999.99;
                 // Predefine the radix characters and currency symbols for output:
                 var CN_ZERO = "零";
@@ -270,8 +270,7 @@
                             zeroCount++;
                         }
                         else {
-                            if (zeroCount > 0)
-                            {
+                            if (zeroCount > 0) {
                                 outputCharacters += digits[0];
                             }
                             zeroCount = 0;
@@ -364,7 +363,7 @@
     /****************************
      * 点击小图，展示大图
      * 使用方式：
-     *      <div id="picList" data-min-pic="images/pic1-min.jpg,images/pic2-min.jpg,images/pic1-min.jpg,images/pic2-min.jpg" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
+     *      <div id="picList" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
      *      $('#picList').zoomPic();
      *
      *      <img src="images/pic1-min.jpg" data-max-pic="images/pic1.jpg" style="margin: 20px; float: left;"/>
@@ -375,126 +374,133 @@
      *
      * @param options
      *          maxData:'max-pic 表示当前点击的data-max-pic内的数据，用,分隔',
-     *          minData:'',
      *          maxPic:'当此处 设置了图片地址',
-     *          minPic:''
      * @returns {*}
      */
     $.fn.zoomPic = function (options) {
 
-        /*****
-         * 点击的位置不是图片框内时，删除图片
-         */
-        function eventRemove() {
-            $(document.body).off('click.zoomPic').on('click.zoomPic', function (event) {
-                event.stopPropagation();
-                var $target = $(event.target);
-                if ($(this).find('#zoom-pic').length > 0 && $target.closest('#zoom-pic').length === 0) {
-                    $('#zoom-pic').remove();
-                } else if ($(this).find('#zoom-list').length > 0 && $target.closest('#zoom-list').length === 0 && $target.closest('#zoom-pic').length === 0) {
-                    $('#zoom-list').remove();
-                }
-            });
-        }
-
-        /********
-         * 显示大图
-         */
-        function showMaxPic(imgUrl) {
-            $(document.body).find('.bd').append('<div class="zoom-pic zoom-radius zoom-shadow" id="zoom-pic"><span id="zoom-loading">正在加载图片</span><img src="' + imgUrl + '" /></div>');
-            var img = new Image();
-            img.onload = function () {
-                picResize($('#zoom-pic'), {width: img.width, height: img.height});
-            };
-            img.src = imgUrl;
-        }
-
-        /*********
-         * 重置图片大小尺寸
-         * @param $zoom
-         * @param opt
-         */
-        function picResize($zoom, opt) {
-            $zoom.css({
-                width: opt.width,
-                height: opt.height,
-                marginLeft: -1 * ((opt.width + 20) / 2),
-                marginTop: -1 * ((opt.height + 20) / 2)
-            }).addClass('show');
-        }
-
-        /**************
-         * 获取图片地址列表
-         * 当设置了图片地址后，就不获取data的数据了
-         * @param me 当前对象
-         * @param data 当前
+        /****
+         * 获取图片数组
+         * @param data
          * @param img
          * @returns {*}
          */
-        function getImgSrc(me, data, img) {
-            var imgList = !img || typeof img === 'undefined' ? $(me).data(data) : img;
+        function getPicSrc(data, img) {
+            var imgList = !img || typeof img === 'undefined' ? data : img;
             if (typeof imgList !== 'undefined') {
                 imgList = imgList.split(',');
             }
             return imgList;
         }
 
-        /**********
-         * 展示图片列表
-         * @param me
-         * @param minList
-         * @param maxList
-         */
-        function zoomList(me, minList, maxList) {
-            $('#zoom-list').remove();
-            var _ = '';
-            $.each(minList, function (k, v) {
-                _ += '<img src="' + v + '" data-max-pic="' + maxList[k] + '" />';
-            });
-            var __zoomList = $('<div class="zoom-list zoom-radius zoom-shadow" id="zoom-list"><div class="zoom-overflow">' + _ + '</div></div>');
-            __zoomList.css({
-                left: $(me).offset().left + 'px',
-                top: ($(me).offset().top + $(me).scrollTop() + $(me).outerHeight(true) + 5) + 'px'
-            });
-            $(document.body).find('.bd').append(__zoomList);
-
-            __zoomList.on('click', 'img', function (event) {
-                event.stopPropagation();
-                $('#zoom-pic').remove();
-                showMaxPic($(this).data('max-pic'));
-            });
+        // 控制 左 右 按钮是否显示
+        function showLeftRight(opt) {
+            var zoom = $(opt.options.zoomPic);
+            zoom.find('.left').show().end().find('.right').show();
+            if (opt.index == 0 || opt.index >= (opt.options.maxImg.length - 1)) {
+                opt.index == 0 && zoom.find('.left').hide();
+                (opt.index >= opt.options.maxImg.length - 1) && zoom.find('.right').hide();
+            }
         }
+
+        /*****
+         * 重置显示出来的尺寸
+         * @param opt
+         * @returns {*}
+         */
+        function getPicSize(opt) {
+            opt.width = opt.width + 20;
+            opt.height = opt.height + 20;
+
+            console.log(opt.height, $(window).height(), ($(window).height() - 100) / (opt.height));
+
+            if (opt.height > ($(window).height() - 100)) {
+                opt.width = opt.width * (($(window).height() - 100) / (opt.height));
+                opt.height = $(window).height() - 100;
+            }
+            opt.marginLeft = -1 * (opt.width / 2);
+            opt.marginTop = -1 * (opt.height / 2);
+            return opt;
+        }
+
+        function ZoomPic(options) {
+            return this.el = null, this.options = options, this.index = 0, this;
+        }
+
+        ZoomPic.prototype = {
+            // 实始化显示图片
+            init: function () {
+                this.options.maxImg.length > 0 && this.resize(this.options.maxImg[0]);
+            },
+            // 传入图片，处理实际尺寸，调用显示
+            resize: function (imgUrl) {
+                var _self = this,
+                    img = new Image();
+
+                showLeftRight(this);
+                this.options.zoomPic.show();
+                img.onload = function () {
+                    _self.show({width: img.width, height: img.height, img: imgUrl});
+                };
+                img.src = imgUrl;
+            },
+            // 显示图片
+            show: function (opt) {
+                this.options.zoomPic.find('span').hide().end().css(getPicSize(opt)).addClass('show').find('img').prop('src', opt.img);
+            },
+            // 隐藏图片
+            hide: function () {
+                var zoomPic = this.options.zoomPic;
+                zoomPic.css({width: 0, height: 0, marginLeft: 0, marginTop: 0, padding: 0});
+                setTimeout(function () {
+                    zoomPic.hide().removeClass('show').find('img').prop('src', 'http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png');
+                }, 300);
+            },
+            bind: function () {
+                var _self = this;
+                $(document.body).off('click.zoomPic').on('click.zoomPic', function (event) {
+                    event.stopPropagation();
+                    var $target = $(event.target);
+                    $($target).closest('.zoomPic').length === 0 && $(this).find('#J-zoom-pic').hasClass('show') && $target.closest('#J-zoom-pic').length === 0 && _self.hide();
+                });
+
+                $(this.options.zoomPic).off('click').on('click', function (event) {
+                    event.stopPropagation();
+                    var $target = $(event.target);
+                    console.log('$target.hasClass(close)', $target.hasClass('close'));
+                    $target.hasClass('close') && _self.hide();
+                    $target.hasClass('left') && ( _self.index--, _self.resize(_self.options.maxImg[_self.index]));
+                    $target.hasClass('right') && ( _self.index++, _self.resize(_self.options.maxImg[_self.index]));
+                });
+            }
+        };
+
+        var html = '<div class="zoom-pic zoom-radius zoom-shadow hidden" id="J-zoom-pic">' +
+            '           <span id="J-zoom-loading">正在加载图片</span>' +
+            '           <div class="div-scroll"><img src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png" /></div>' +
+            '           <div class="close"></div><div class="left hidden"></div><div class="right hidden"></div>' +
+            '       </div>';
+        $('#J-zoom-list').length == 0 && $(document.body).find('div:first').append(html);
 
         return this.each(function () {
 
             var me = this;
+            $(this).addClass('zoomPic');
             me.opt = $.extend({}, {
                 maxData: 'max-pic', // 数据存储点
-                minData: 'min-pic',
                 maxImg: '', // 设置好的大图
-                minImg: ''
             }, options);
 
-            $(me).on('click', function (event) {
-                event.stopPropagation();
-                $('#zoom-pic').remove();
-                eventRemove();
-                // 获取大图列表
-                var maxList = getImgSrc(me, me.opt.maxData, me.opt.maxImg);
+            me.opt.maxImg = getPicSrc($(me).data(me.opt.maxData), me.opt.maxImg);
 
-                switch (maxList.length) {
-                    case 0:
-                        alert('对不起，没有得到大图地址');
-                        break;
-                    case 1:
-                        // 显示一张大图
-                        showMaxPic(maxList[0]);
-                        break;
-                    default:
-                        // 显示一组小图，点击小图展示大图
-                        zoomList(me, getImgSrc(me, me.opt.minData, me.opt.minImg), maxList);
-                }
-            });
+            me.opt.zoomPic = $('#J-zoom-pic');
+            $(me).on("click", function () {
+                var zoom = new ZoomPic(this.opt);
+                console.log('zoom', zoom);
+                zoom.el = this;
+                zoom.bind();
+                zoom.init();
+            })
         });
     };
 
@@ -503,22 +509,22 @@
      * 防止重复点击
      * @param options
      */
-    $.fn.disableBtn = function(options){
+    $.fn.disableBtn = function (options) {
         var me = this;
         me.opt = $.extend({}, {
             time: 1000 // 防止重复点击，按钮的失效时间
         }, options);
 
-        return this.each(function(){
-            $(this).on('click', function(event){
+        return this.each(function () {
+            $(this).on('click', function (event) {
                 event.stopPropagation();
                 $(this).prop('disabled', true);
                 removeDisable(this);
             });
         });
 
-        function removeDisable($this){
-            setTimeout(function(){
+        function removeDisable($this) {
+            setTimeout(function () {
                 $($this).prop('disabled', false);
             }, me.opt.time);
         }
@@ -529,7 +535,7 @@
      * @param options
      */
     $.fn.unloadPic = function (options) {
-        return this.each(function(){
+        return this.each(function () {
             var me = this;
             me.opt = $.extend({}, {
                 url: '', // 上传地址

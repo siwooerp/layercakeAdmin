@@ -188,9 +188,12 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
     // 最少保留一个大图的数据 maxData maxImg 里最少要有一个有数据
     $('img').zoomPic({
         maxData: 'max-pic',
-        minData: 'min-pic',
-        maxImg: '',
-        minImg: ''
+        maxImg: ''
+    });
+    
+    
+    $('img').zoomPic({
+        maxImg: 'http://xx.jpg,http://yy.jpg,http://zz.jpg'
     });
     
     <img src="images/pic1-min.jpg" data-max-pic="images/pic1.jpg" style="margin: 20px; float: left;"/>
@@ -201,7 +204,7 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
     });
     
     // 如要展示多张图，请用逗号分隔。并且 maxData和minData 或 maxImg和minImg 必须有一组是有值的
-    <div id="picList" data-min-pic="images/pic1-min.jpg,images/pic2-min.jpg,images/pic1-min.jpg,images/pic2-min.jpg" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
+    <div id="picList" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
     $('#picList').zoomPic();
 
 > 参数列表

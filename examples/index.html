@@ -7,17 +7,17 @@
 
     <link rel="stylesheet" href="../dist/layercake.tools.css"/>
 
-    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
     <script src="../dist/jquery.layercake.tools.js"></script>
     <script src="../dist/common.js"></script>
 
 </head>
-<body style="width: 1920px; height: 1000px;">
+<body>
 
 
 <div class="bd">
     <div style="width: 1000px; height: 300px;">
-        <img src="images/pic1-min.jpg" data-max-pic="images/pic1.jpg" style="margin: 20px; float: left;"/>
+        <img src="images/pic1-min.jpg" data-max-pic="http://www.liblin.com.cn/layercake/product/pic/28597" style="margin: 20px; float: left;"/>
         <img src="images/pic2-min.jpg" data-max-pic="images/pic2.jpg" style="margin: 20px; float: left;"/>
     </div>
     <div style="width: 200px; height:50px; margin-left: 300px;">
@@ -25,6 +25,10 @@
              data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果
         </div>
     </div>
+    <img class="J_product_pic J_click_max" data-idx="31137" data-width="200" src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png">
+    <img class="J_product_pic J_click_max" data-idx="30255" data-width="200" src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png">
+
+    <div style="height: 1300px; width:100%;">&nbsp;</div>
 </div>
 
 
@@ -42,11 +46,7 @@
 
     console.log($.SW.NUM.convertCurrency('1200563'));
 
-    $('img').winOpen({
-        winName: 'maxpic',
-        url: 'http://www.taobao.com',
-        height: 2000
-    });
+    $('img').zoomPic();
 
     $('#picList').zoomPic();
 </script>
