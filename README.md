@@ -190,6 +190,17 @@ http://siwoo.oss-cn-hangzhou.aliyuncs.com/jquery/layercake.tools.min.css<br/>
         maxData: 'max-pic',
         maxImg: ''
     });
+    // 或者传入一个ajax获取数据
+    $('img').zoomPic(function(){
+        $.ajax({
+            async: false, //必须值，同步执行
+			type: 'GET',
+			url: 'URL值',
+			data:{传值对象},
+        }).done(function(data){
+            return data; // data的值应该是个 以逗号分隔所有图片的字符串，只有一个图片时，就一个图片链接就好了
+        });
+    });
     
     
     $('img').zoomPic({

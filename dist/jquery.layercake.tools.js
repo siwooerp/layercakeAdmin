@@ -300,8 +300,8 @@
                 if (outputCharacters == "") {
                     outputCharacters = CN_ZERO + CN_DOLLAR;
                 }
-                if (decimal == "" || decimal == '00') {
-                    console.log('decimal=', decimal);
+                if (decimal == "" || decimal == '00' || decimal == '0') {
+                    //console.log('decimal=', decimal);
                     outputCharacters += CN_INTEGER;
                 }
                 // outputCharacters = CN_SYMBOL + outputCharacters;
@@ -363,7 +363,7 @@
         $($this).off('click').on('click', function (event) {
             event.stopPropagation();
 
-            if (tools.isFunction(meOpt.url)) {
+            if ($.isFunction(meOpt.url)) {
                 meOpt.url = meOpt.url.call($this);
             }
             // window.open 是相对于整个屏幕的 left top
@@ -412,19 +412,29 @@
 
             var me = this;
             $(this).addClass('zoomPic');
+
+            // 如果是个function 则获取返回值
+            if ($.isFunction(options)) {
+                var opt = options();
+                $.type(opt) === 'string' ? (options.maxImg = opt) : (options.maxData = '');
+            }
+
             me.opt = $.extend({}, defaults, options);
 
             me.opt.maxImg = getPicSrc($(me).data(me.opt.maxData), me.opt.maxImg);
 
-            me.opt.zoomPic = $('#J-zoom-pic');
-            $(me).on("click", function () {
-                var zoom = new ZoomPic(this.opt);
-                // console.log('zoom', zoom);
-                zoom.el = this;
-                zoom.bind();
-                zoom.init();
-                return zoom;
-            })
+            if (me.opt.maxImg.length > 0) {
+                me.opt.zoomPic = $('#J-zoom-pic');
+                $(me).on("click", function () {
+                    var zoom = new ZoomPic(this.opt);
+                    // console.log('zoom', zoom);
+                    zoom.el = this;
+                    zoom.bind();
+                    zoom.init();
+                    return zoom;
+                });
+            }
+
         });
     };
 
