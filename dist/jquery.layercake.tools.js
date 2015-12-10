@@ -33,6 +33,10 @@
         }
     };
 
+})(window.jQuery, window, document);
+
+
+(function ($, window, document, undefined) {
     // 工具对象
     var tools = {
         isJSON: function (opt) {
@@ -296,7 +300,8 @@
                 if (outputCharacters == "") {
                     outputCharacters = CN_ZERO + CN_DOLLAR;
                 }
-                if (decimal == "") {
+                if (decimal == "" || decimal == '00') {
+                    console.log('decimal=', decimal);
                     outputCharacters += CN_INTEGER;
                 }
                 // outputCharacters = CN_SYMBOL + outputCharacters;
@@ -306,6 +311,10 @@
         }
     };
 
+})(window.jQuery, window, document);
+
+
+(function ($, window, document, undefined) {
     /**********
      * 弹出窗口
      * 调用方式：$('.winOpen').winOpen({url:'链接地址', width:100, height:100});
@@ -318,14 +327,16 @@
      *          });
      * @param options
      */
+    var defaults = {
+        width: 1104,
+        height: 600,
+        winName: ''
+    };
+
     $.fn.winOpen = function (options) {
         return this.each(function () {
             var me = this;
-            me.opt = $.extend({}, {
-                width: 1104,
-                height: 600,
-                winName: ''
-            }, options);
+            me.opt = $.extend({}, defaults, options);
 
             if (typeof me.opt.url !== 'undefined') {
                 // 处理获取水平居中参数
@@ -341,25 +352,28 @@
                 winOpenFn(this, me.opt);
             }
         });
-
-        /****
-         * 为每一个绑定点击事件
-         * @param $this
-         * @param meOpt
-         */
-        function winOpenFn($this, meOpt) {
-            $($this).off('click').on('click', function (event) {
-                event.stopPropagation();
-
-                if (tools.isFunction(meOpt.url)) {
-                    meOpt.url = meOpt.url.call($this);
-                }
-                // window.open 是相对于整个屏幕的 left top
-                window.open(meOpt.url, meOpt.winName, 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
-            });
-        }
     };
 
+    /****
+     * 为每一个绑定点击事件
+     * @param $this
+     * @param meOpt
+     */
+    function winOpenFn($this, meOpt) {
+        $($this).off('click').on('click', function (event) {
+            event.stopPropagation();
+
+            if (tools.isFunction(meOpt.url)) {
+                meOpt.url = meOpt.url.call($this);
+            }
+            // window.open 是相对于整个屏幕的 left top
+            window.open(meOpt.url, meOpt.winName, 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+        });
+    }
+})(window.jQuery, window, document);
+
+
+(function ($, window, document, undefined) {
     /****************************
      * 点击小图，展示大图
      * 使用方式：
@@ -377,134 +391,142 @@
      *          maxPic:'当此处 设置了图片地址',
      * @returns {*}
      */
+
+
+    var html = '<div class="zoom-pic zoom-radius zoom-shadow hidden" id="J-zoom-pic">' +
+        '           <span id="J-zoom-loading">正在加载图片</span>' +
+        '           <div class="div-scroll"><img src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png" /></div>' +
+        '           <div class="close"></div><div class="left hidden"></div><div class="right hidden"></div>' +
+        '       </div>';
+
+    var defaults = {
+        maxData: 'max-pic', // 数据存储点
+        maxImg: '' // 设置好的大图
+    };
+
     $.fn.zoomPic = function (options) {
 
-        /****
-         * 获取图片数组
-         * @param data
-         * @param img
-         * @returns {*}
-         */
-        function getPicSrc(data, img) {
-            var imgList = !img || typeof img === 'undefined' ? data : img;
-            if (typeof imgList !== 'undefined') {
-                imgList = imgList.split(',');
-            }
-            return imgList;
-        }
-
-        // 控制 左 右 按钮是否显示
-        function showLeftRight(opt) {
-            var zoom = $(opt.options.zoomPic);
-            zoom.find('.left').show().end().find('.right').show();
-            if (opt.index == 0 || opt.index >= (opt.options.maxImg.length - 1)) {
-                opt.index == 0 && zoom.find('.left').hide();
-                (opt.index >= opt.options.maxImg.length - 1) && zoom.find('.right').hide();
-            }
-        }
-
-        /*****
-         * 重置显示出来的尺寸
-         * @param opt
-         * @returns {*}
-         */
-        function getPicSize(opt) {
-            opt.width = opt.width + 20;
-            opt.height = opt.height + 20;
-
-            console.log(opt.height, $(window).height(), ($(window).height() - 100) / (opt.height));
-
-            if (opt.height > ($(window).height() - 100)) {
-                opt.width = opt.width * (($(window).height() - 100) / (opt.height));
-                opt.height = $(window).height() - 100;
-            }
-            opt.marginLeft = -1 * (opt.width / 2);
-            opt.marginTop = -1 * (opt.height / 2);
-            return opt;
-        }
-
-        function ZoomPic(options) {
-            return this.el = null, this.options = options, this.index = 0, this;
-        }
-
-        ZoomPic.prototype = {
-            // 实始化显示图片
-            init: function () {
-                this.options.maxImg.length > 0 && this.resize(this.options.maxImg[0]);
-            },
-            // 传入图片，处理实际尺寸，调用显示
-            resize: function (imgUrl) {
-                var _self = this,
-                    img = new Image();
-
-                showLeftRight(this);
-                this.options.zoomPic.show();
-                img.onload = function () {
-                    _self.show({width: img.width, height: img.height, img: imgUrl});
-                };
-                img.src = imgUrl;
-            },
-            // 显示图片
-            show: function (opt) {
-                this.options.zoomPic.find('span').hide().end().css(getPicSize(opt)).addClass('show').find('img').prop('src', opt.img);
-            },
-            // 隐藏图片
-            hide: function () {
-                var zoomPic = this.options.zoomPic;
-                zoomPic.css({width: 0, height: 0, marginLeft: 0, marginTop: 0, padding: 0});
-                setTimeout(function () {
-                    zoomPic.hide().removeClass('show').find('img').prop('src', 'http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png');
-                }, 300);
-            },
-            bind: function () {
-                var _self = this;
-                $(document.body).off('click.zoomPic').on('click.zoomPic', function (event) {
-                    event.stopPropagation();
-                    var $target = $(event.target);
-                    $($target).closest('.zoomPic').length === 0 && $(this).find('#J-zoom-pic').hasClass('show') && $target.closest('#J-zoom-pic').length === 0 && _self.hide();
-                });
-
-                $(this.options.zoomPic).off('click').on('click', function (event) {
-                    event.stopPropagation();
-                    var $target = $(event.target);
-                    console.log('$target.hasClass(close)', $target.hasClass('close'));
-                    $target.hasClass('close') && _self.hide();
-                    $target.hasClass('left') && ( _self.index--, _self.resize(_self.options.maxImg[_self.index]));
-                    $target.hasClass('right') && ( _self.index++, _self.resize(_self.options.maxImg[_self.index]));
-                });
-            }
-        };
-
-        var html = '<div class="zoom-pic zoom-radius zoom-shadow hidden" id="J-zoom-pic">' +
-            '           <span id="J-zoom-loading">正在加载图片</span>' +
-            '           <div class="div-scroll"><img src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png" /></div>' +
-            '           <div class="close"></div><div class="left hidden"></div><div class="right hidden"></div>' +
-            '       </div>';
-        $('#J-zoom-list').length == 0 && $(document.body).find('div:first').append(html);
+        $('#J-zoom-pic').length == 0 && $(document.body).find('div:first').append(html);
 
         return this.each(function () {
 
             var me = this;
             $(this).addClass('zoomPic');
-            me.opt = $.extend({}, {
-                maxData: 'max-pic', // 数据存储点
-                maxImg: '', // 设置好的大图
-            }, options);
+            me.opt = $.extend({}, defaults, options);
 
             me.opt.maxImg = getPicSrc($(me).data(me.opt.maxData), me.opt.maxImg);
 
             me.opt.zoomPic = $('#J-zoom-pic');
             $(me).on("click", function () {
                 var zoom = new ZoomPic(this.opt);
-                console.log('zoom', zoom);
+                // console.log('zoom', zoom);
                 zoom.el = this;
                 zoom.bind();
                 zoom.init();
+                return zoom;
             })
         });
     };
 
+    function ZoomPic(options) {
+        return this.el = null, this.options = options, this.index = 0, this;
+    }
 
+    ZoomPic.prototype = {
+        // 实始化显示图片
+        init: function () {
+            this.options.maxImg.length > 0 && this.resize(this.options.maxImg[0]);
+        },
+        // 传入图片，处理实际尺寸，调用显示
+        resize: function (imgUrl) {
+            var _self = this,
+                img = new Image();
+
+            showLeftRight(this);
+            this.options.zoomPic.show();
+            img.onload = function () {
+                _self.show({width: img.width, height: img.height, img: imgUrl});
+            };
+            img.src = imgUrl;
+        },
+        // 显示图片
+        show: function (opt) {
+            this.options.zoomPic.find('span').hide().end().css(getPicSize(opt)).addClass('show').find('img').prop('src', opt.img);
+        },
+        // 隐藏图片
+        hide: function () {
+            var zoomPic = this.options.zoomPic;
+            zoomPic.css({width: 0, height: 0, marginLeft: 0, marginTop: 0, padding: 0});
+            setTimeout(function () {
+                zoomPic.hide().removeClass('show').find('img').prop('src', 'http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png');
+            }, 300);
+        },
+        bind: function () {
+            var _self = this;
+            $(document.body).off('click.zoomPic').on('click.zoomPic', function (event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                $($target).closest('.zoomPic').length === 0 && $(this).find('#J-zoom-pic').hasClass('show') && $target.closest('#J-zoom-pic').length === 0 && _self.hide();
+            });
+
+            $(this.options.zoomPic).off('click').on('click', function (event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                // console.log('$target.hasClass(close)', $target.hasClass('close'));
+                $target.hasClass('close') && _self.hide();
+                $target.hasClass('left') && ( _self.index--, _self.resize(_self.options.maxImg[_self.index]));
+                $target.hasClass('right') && ( _self.index++, _self.resize(_self.options.maxImg[_self.index]));
+            });
+        }
+    };
+
+    /****
+     * 获取图片数组
+     * @param data
+     * @param img
+     * @returns {*}
+     */
+    function getPicSrc(data, img) {
+        var imgList = !img || typeof img === 'undefined' ? data : img;
+        if (typeof imgList !== 'undefined') {
+            imgList = imgList.split(',');
+        }
+        return imgList;
+    }
+
+    // 控制 左 右 按钮是否显示
+    function showLeftRight(opt) {
+        var zoom = $(opt.options.zoomPic);
+        zoom.find('.left').show().end().find('.right').show();
+        if (opt.index == 0 || opt.index >= (opt.options.maxImg.length - 1)) {
+            opt.index == 0 && zoom.find('.left').hide();
+            (opt.index >= opt.options.maxImg.length - 1) && zoom.find('.right').hide();
+        }
+    }
+
+    /*****
+     * 重置显示出来的尺寸
+     * @param opt
+     * @returns {*}
+     */
+    function getPicSize(opt) {
+        opt.width = opt.width + 20;
+        opt.height = opt.height + 20;
+
+        if (opt.height > ($(window).height() - 100)) {
+            opt.width = opt.width * (($(window).height() - 100) / (opt.height));
+            opt.height = $(window).height() - 100;
+        }
+        opt.marginLeft = -1 * (opt.width / 2);
+        opt.marginTop = -1 * (opt.height / 2);
+        return opt;
+    }
+
+
+})(window.jQuery, window, document);
+
+
+(function ($, window, document, undefined) {
     /*******************
      * 防止重复点击
      * @param options
@@ -530,6 +552,8 @@
         }
     };
 
+})(window.jQuery, window, document);
+(function ($, window, document, undefined) {
     /****************
      * 截图、拖入图片、文件上传
      * @param options
