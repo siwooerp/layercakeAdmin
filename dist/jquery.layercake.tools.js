@@ -374,7 +374,7 @@
 
 
 (function ($, window, document, undefined) {
-    /****************************
+    /***************************
      * 点击小图，展示大图
      * 使用方式：
      *      <div id="picList" data-max-pic="images/pic1.jpg,images/pic2.jpg,images/pic1.jpg,images/pic2.jpg">图片组效果</div>
@@ -413,27 +413,29 @@
             var me = this;
             $(this).addClass('zoomPic');
 
-            // 如果是个function 则获取返回值
-            if ($.isFunction(options)) {
-                var opt = options();
-                $.type(opt) === 'string' ? (options.maxImg = opt) : (options.maxData = '');
-            }
 
-            me.opt = $.extend({}, defaults, options);
+            //if (me.opt.maxImg.length > 0) {
 
-            me.opt.maxImg = getPicSrc($(me).data(me.opt.maxData), me.opt.maxImg);
+            $(me).css({cursor: 'pointer'}).on("click", function () {
 
-            if (me.opt.maxImg.length > 0) {
+                // 如果是个function 则获取返回值
+                if ($.isFunction(options)) {
+                    options.maxImg = options.call(me);
+                }
+                me.opt = $.extend({}, defaults, options);
+
+                me.opt.maxImg = getPicSrc($(me).data(me.opt.maxData), me.opt.maxImg);
+                //console.log('me.opt.maxImg=', me.opt.maxImg);
                 me.opt.zoomPic = $('#J-zoom-pic');
-                $(me).on("click", function () {
-                    var zoom = new ZoomPic(this.opt);
-                    // console.log('zoom', zoom);
-                    zoom.el = this;
-                    zoom.bind();
-                    zoom.init();
-                    return zoom;
-                });
-            }
+
+                var zoom = new ZoomPic(this.opt);
+                // console.log('zoom', zoom);
+                zoom.el = this;
+                zoom.bind();
+                zoom.init();
+                return zoom;
+            });
+            //}
 
         });
     };
@@ -523,8 +525,10 @@
         opt.width = opt.width + 20;
         opt.height = opt.height + 20;
 
+        opt.width > 1050 && (opt.width = 1050);
+
         if (opt.height > ($(window).height() - 100)) {
-            opt.width = opt.width * (($(window).height() - 100) / (opt.height));
+            //opt.width = opt.width * (($(window).height() - 100) / (opt.height));
             opt.height = $(window).height() - 100;
         }
         opt.marginLeft = -1 * (opt.width / 2);
@@ -563,6 +567,8 @@
     };
 
 })(window.jQuery, window, document);
+
+
 (function ($, window, document, undefined) {
     /****************
      * 截图、拖入图片、文件上传
@@ -581,5 +587,9 @@
         });
 
     };
+
+})(window.jQuery, window, document);
+
+(function ($, window, document, undefined) {
 
 })(window.jQuery, window, document);
