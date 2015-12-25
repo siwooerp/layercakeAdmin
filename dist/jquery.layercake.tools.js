@@ -60,6 +60,21 @@
     };
 
     $.SW = {
+
+        // 表单验证
+        validForm: function (num, options) {
+            options = options.toUpperCase();
+            var optValid = false;
+            switch (options) {
+                case 'NUMBER':
+                    optValid = /^\d+\.?\d*$/g.test(num);
+                    break;
+                default:
+                    optValid = false;
+                    break;
+            }
+            return optValid;
+        },
         /*******************
          * 数据本地存储
          * $.SW.storage.storage 是否支持存储
@@ -362,12 +377,16 @@
     function winOpenFn($this, meOpt) {
         $($this).off('click').on('click', function (event) {
             event.stopPropagation();
-
+            var _url = '';
             if ($.isFunction(meOpt.url)) {
-                meOpt.url = meOpt.url.call($this);
+                _url = meOpt.url.call($this);
+            } else {
+                _url = meOpt.url;
             }
-            // window.open 是相对于整个屏幕的 left top
-            window.open(meOpt.url, meOpt.winName, 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+            if (typeof _url !== 'undefined') {
+                // window.open 是相对于整个屏幕的 left top
+                window.open(_url, meOpt.winName, 'width=' + meOpt.width + ', height=' + meOpt.height + ', top=' + meOpt.top + ', left=' + meOpt.left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+            }
         });
     }
 })(window.jQuery, window, document);
