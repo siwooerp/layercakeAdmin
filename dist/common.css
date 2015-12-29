@@ -176,8 +176,9 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .C_check_field .C_check_fields:hover { background:#249cf2; }
 
 
-.bd strong { margin-left: 3px; color: red; }
-.bd .form .box span { color: #9d9fa3; margin-left: 20px; }
+.bd .textareaCount { position:relative; float:left; }
+.bd strong { margin-left: 3px; color: red; font-weight: 300; }
+.bd .form .box span { position:absolute; right:6px; bottom:6px; color: #9d9fa3; }
 
 .bd .form.lr { margin: 0 0 0 315px; width:auto; }
 .bd .form.pic img { padding:15px; width:270px; }
@@ -383,7 +384,6 @@ hr { background-color: #ececec; height: 1px; border: none; }
 .bd .selected_card.hide { display: none; }
 .bd .selected_card img,
 .bd .selected_card video { float: left; }
-
 
 .bd .preview { width: 800px; height: 600px; border:1px solid #ccc; display: none; position: fixed; z-index: 110; top:10px; background-color: #FFF; padding:10px; overflow-y: auto;  }
 .bd .wrap_imgDiv { margin-left: 80px; }
