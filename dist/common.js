@@ -22,5 +22,127 @@ $(document).ready(function () {
         });
     });
 
+
+    /**
+     * 返回顶部
+     */
+    var html = $('<div class="goBack"><span></span></div>');
+    $('.bd').append(html);
+    var goBack = $('.goBack');
+
+    $('.bd').scroll(function(){
+        if ($('.bd').scrollTop()>200){
+            //console.log($('.bd').scrollTop());
+            goBack.fadeIn(1500);
+        }else{
+            goBack.fadeOut(1500);
+        }
+    });
+
+    goBack.click(function(){
+        $('.bd').animate({scrollTop:0},1000);
+        return false;
+    });
+
+
+
+    /**
+     * 导航条固定
+     * 只需在需要导航条的地方加上一个class：J_fixedNav就可以了
+     */
+    if($('.J_fixedNav').length > 0){
+        var J_fixedNav = $('.J_fixedNav');
+        J_fixedNav.attr('otop', J_fixedNav.offset().top); //存储原来的距离顶部的距离
+        //console.log(J_fixedNav.offset().top);
+
+        $('.bd').scroll(function (){
+            //console.log((J_fixedNav.attr('otop')));
+            if ($('.bd').scrollTop() >= parseInt(J_fixedNav.attr('otop'))) {
+                if (J_fixedNav.css('position') != 'fixed')
+                    J_fixedNav.css({ 'position': 'fixed', top: 0 ,'z-index': 200 ,'width' : '986px' , 'border-top' : '10px solid #666666'});
+            }else if(J_fixedNav.css('position') != 'static')
+                J_fixedNav.css({ 'position': 'static', 'border-top':'0' });
+        });
+    }
+
 });
 
+
+    /**
+     * 模糊查询
+     */
+    function auto(option){
+
+        //联想输入
+        $(option.obj).wrap('<div class="check_field"></div>').after('<div class="C_check_field"></div>');
+        var C_check_field = $('.C_check_field');
+        C_check_field.css('width',$(option.obj).outerWidth());
+
+        //联想列表
+        $(option.obj).on('input propertychange', function(event){
+
+            var self = this;
+            $(self).prop('autocomplete', 'off');
+            if ($(self).val().length < 1) {
+                C_check_field.hide().html('');
+            } else {
+                var dataObj = {};
+                dataObj.datatime = +new Date;
+                dataObj[option.dataName] = $(self).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: option.url,
+                    data: dataObj
+                }).done(function (data) {
+
+                    C_check_field.show().html('');
+                    console.log('联想列表', data);
+                    option.returnfn.call(option.obj, data, C_check_field);
+                });
+            }
+
+        });
+
+        C_check_field.on('click', function(event){
+
+            var target = $(event.target);
+            var idx = target.data('idx');
+            var namex = target.data('namex');
+            $(option.obj).empty().val(namex).data('idx', idx); /* 2015-11-25 data('idx', idx) */
+            C_check_field.hide();
+            /* 2015-11-25 */
+            if (option.callback){
+                option.callback();
+            }
+        });
+
+        $(document).on('click',function(event){
+            var target = $(event.target);
+            if (target.closest('.preview').length == 0){
+                $('.C_check_field').hide();
+            }
+        });
+    }
+
+
+/*
+ * 剩余字数统计
+ * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
+ * <div class="textareaCount J_textareaCount">
+      <textarea rows="2" cols="3" name="arrivalDesc"></textarea>
+      <span class="wordWrap"><strong class="word">250</strong>/250</span>
+   </div>
+ */
+(function ($){
+    $.fn.limitNum = function(textArea,numItem){
+        var max = numItem.text(),
+            curLength;
+        textArea.eq(0).prop("maxLength", max);
+        curLength = textArea.val().length;
+        numItem.text(max - curLength);
+        textArea.on('input propertychange', function(){
+            numItem.text(max - $(this).val().length);
+        });
+    }
+})(jQuery);
