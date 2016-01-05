@@ -27,7 +27,7 @@
     </div>
     <img class="J_product_pic J_click_max" data-idx="31137" data-width="200" src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png">
     <img class="J_product_pic J_click_max" data-idx="30255" data-width="200" src="http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png">
-
+    <input type="number" value="ui34.09">
     <div style="height: 1300px; width:100%;">&nbsp;</div>
 </div>
 
@@ -44,11 +44,14 @@
     console.log('toDecimal', $.SW.NUM.toDecimal('17%'));
     console.log('toPercentFormat', $.SW.NUM.toPercentFormat(0.17));
 
-    console.log($.SW.NUM.convertCurrency('1200563'));
+    console.log($.SW.NUM.convertCurrency('1200563.00'));
+
+    console.log($.SW.validForm('34.9', 'number'));
 
     $('img').zoomPic();
 
-    $('#picList').zoomPic();
+    $('#picList').zoomPic().init();
+    console.log($('#picList').zoomPic());
 </script>
 
 </body>
