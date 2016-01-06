@@ -98,7 +98,6 @@ $(document).ready(function () {
                     option.returnfn.call(option.obj, data, C_check_field);
                 });
             }
-
         });
 
         C_check_field.on('click', function(event){
@@ -106,7 +105,8 @@ $(document).ready(function () {
             var target = $(event.target);
             var idx = target.data('idx');
             var namex = target.data('namex');
-            $(option.obj).empty().val(namex).data('idx', idx); /* 2015-11-25 data('idx', idx) */
+            $(option.obj).val(namex).data('idx', idx); /* 2015-11-25 data('idx', idx) */
+            $(option.returnInput).val(idx);
             C_check_field.hide();
             /* 2015-11-25 */
             if (option.callback){
@@ -120,8 +120,8 @@ $(document).ready(function () {
                 $('.C_check_field').hide();
             }
         });
-    }
 
+    }
 
 /*
  * 剩余字数统计
