@@ -6,8 +6,6 @@ a:hover { text-decoration: underline; }
 
 li { list-style: none; }
 
-
-
 .cleaar,
 .clear{zoom:1;}
 .cleaar:after,
@@ -52,14 +50,14 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 
 /** 头部 **/
 .header { width: 1300px; height: 70px; background-color: #5faee3; margin: 0 auto; padding: 0; position: fixed; }
-.header .logo { margin: 18px 0 18px 30px; float: left; width: 161px; height: 34px; background: url(../images/layercake_logo.png) no-repeat left center; }
+.header .logo { margin: 18px 0 18px 30px; float: left; width: 161px; height: 34px; background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Flayercake_logo.png) no-repeat left center; }
 .header .hd_bd { float: right; min-width: 10px; height: 70px; line-height: 70px; font-size: 14px; padding: 0 30px; color: #FFF; }
 .header .hd_bd .icon { float: left; width: 35px; height: 30px; margin: 20px; }
-.header .hd_bd .search { background: url(../images/icon_search.png) no-repeat left center; }
-.header .hd_bd .alerts { background: url(../images/icon_alerts.png) no-repeat left center; }
-.header .hd_bd .settings { background: url(../images/icon_settings.png) no-repeat left center; }
-.header .hd_bd .info { background: url(../images/icon_info.png) no-repeat left center; }
-.header .hd_bd .mobile { background: url(../images/icon_mobile.png) no-repeat left center; }
+.header .hd_bd .search { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Ficon_search.png) no-repeat left center; }
+.header .hd_bd .alerts { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Ficon_alerts.png) no-repeat left center; }
+.header .hd_bd .settings { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Ficon_settings.png) no-repeat left center; }
+.header .hd_bd .info { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Ficon_info.png) no-repeat left center; }
+.header .hd_bd .mobile { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Ficon_mobile.png) no-repeat left center; }
 
 .header .hd_bd .tx_box { float: left; height: 30px; margin: 20px; }
 .header .hd_bd .tx_box .tx { float: left; width: 30px; height: 30px; overflow: hidden; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; }
@@ -79,11 +77,11 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .ld { position: fixed; width: 219px; border-right: 1px solid #e0e0e0; height: 100%; max-height: calc(100%); overflow-y: auto; background-color: #f2f2f2; }
 .ld .box { margin: 0; }
 .ld .box .ul { font-size: 16px; color: #000000; line-height: 70px; cursor: pointer; border-bottom: 1px solid #e0e0e0; }
-.ld .box .ul .li_top { padding-left: 85px; line-height: 70px; background: url(../images/pc_left_icon.png) no-repeat 0 0;  }
-.ld .box .ul .li_topnew { background: url(../images/pc_left_icons.png) no-repeat 0 0; }
+.ld .box .ul .li_top { padding-left: 85px; line-height: 70px; background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fpc_left_icon.png) no-repeat 0 0;  }
+.ld .box .ul .li_topnew { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fpc_left_icons.png) no-repeat 0 0; }
 .ld .box .ul .li_topnew.icon1 { background-position: 0 0; }
 .ld .box .ul .li_topnew.icon2 { background-position: 0 -70px; }
-.ld .box .ul .li_top.icon3 { background: url(../images/pc_left_icon.png) no-repeat 3px -140px; }
+.ld .box .ul .li_top.icon3 { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fpc_left_icon.png) no-repeat 3px -140px; }
 .ld .box .ul .li_top.icon5 { background-position: 0 -145px; }
 .ld .box .ul .li_top.icon6 { background-position: 0 -218px; }
 .ld .box .ul .li_top.icon8 { background-position: 0 -290px; }
@@ -102,6 +100,7 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 
 .ld .box .ul.checked { background-color: #f9f9f9; padding-bottom: 20px; }
 .ld .box .ul.checked .li { display: block; }
+
 
 
 /** 右侧 **/
@@ -139,6 +138,7 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .bd .form-label .form .label { min-width: 70px; }
 
 
+
 /* form样式 */
 .bd .form { margin: 0 auto; width: 100%; }
 .bd .form_border { border-top: 2px solid #9d9fa3; padding-bottom: 0; padding-top:20px; }
@@ -167,6 +167,7 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .bd .form_sub input[type="button"]:first-child { margin-left:30%; }
 
 
+
 /* 提示信息 */
 .bd .form .label .prompt-word {  width:192px; z-index: 10; position: absolute; border: 1px solid #b7c7e2; top:36px; }
 
@@ -176,9 +177,8 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .C_check_field .C_check_fields:hover { background:#249cf2; }
 
 
-.bd .textareaCount { position:relative; float:left; }
-.bd strong { margin-left: 3px; color: red; font-weight: 300; }
-.bd .form .box span { position:absolute; right:6px; bottom:6px; color: #9d9fa3; }
+.bd strong { margin-left: 3px; color: red; }
+.bd .form .box span { color: #9d9fa3; margin-left: 20px; }
 
 .bd .form.lr { margin: 0 0 0 315px; width:auto; }
 .bd .form.pic img { padding:15px; width:270px; }
@@ -193,7 +193,7 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 /* 单行 */
 .bd .page .ul { position: relative; width: 100%; min-height: 30px; font-size: 14px; border-bottom: 1px solid #e1e1e1; background-color: #f9f9f9; padding: 7px 0; margin: 0; display:-moz-box; display:-webkit-box; display:flex; box-align: center; -webkit-box-align: center; -moz-box-align: center; box-pack: center; -webkit-box-pack: center; -moz-box-pack: center; display: table-row\9; }
 .bd .page .ul:nth-child(2n) { background-color: #FFF; }
-.bd .page .ul .li { min-height: 30px; line-height: 30px; text-align: center; vertical-align:middle; border-left: 1px solid #d8d8d9; color: #45474d; padding: 0 15px; word-wrap:break-word; word-break:break-all; display: table-cell\9; }
+.bd .page .ul .li { min-height: 38px; line-height: 38px; text-align: center; vertical-align:middle; border-left: 1px solid #d8d8d9; color: #45474d; padding: 0 15px; word-wrap:break-word; word-break:break-all; display: table-cell\9; }
 .bd .page .ul .li label { padding-right: 0; }
 .bd .page .ul .li:first-child { border-left: 0; background-color: transparent; }
 
@@ -224,6 +224,8 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 .bd .page .ul .bottonCls { float: left; margin:5px; padding: 3px 10px; height: 16px; line-height: 16px; font-size: 12px; background-color: #FFF; border: 1px solid #cfd6e6; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; }
 
 
+
+
 /* 翻页 */
 .bd .page .pageNo { position: relative; width: 100%; font-size: 14px; background-color: #f9f9f9; padding: 7px 0; height: 40px; line-height: 40px; border: 0; }
 .bd .page .pageNo .pageTxt { float: right; color: #666666; text-align: right; padding-right: 20px; }
@@ -250,11 +252,11 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 /* 二维码 */
 .bd .page.qrCode { float: left; width: auto; margin: 20px; padding-top: 55px; border: 0; }
 .bd .page.qrCode .ul { padding: 7px; width: auto; background-color: #FFF; }
-.bd .page.qrCode.qr_seka { background: url(../images/ruhnn-seka.jpg) no-repeat; background-size: 100% auto; }
-.bd .page.qrCode.qr_yuanyang { background: url(../images/ruhnn-yuanyang.jpg) no-repeat; background-size: 100% auto; }
-.bd .page.qrCode.qr_yangyi { background: url(../images/ruhnn-yangyi.jpg) no-repeat; background-size: 100% auto; }
-.bd .page.qrCode.qr_diaoliao { background: url(../images/ruhnn-diaoliao.jpg) no-repeat; background-size: 100% auto; }
-.bd .page.qrCode.qr_kuanshi { background: url(../images/ruhnn-kuanshi.jpg) no-repeat; background-size: 100% auto; }
+.bd .page.qrCode.qr_seka { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fruhnn-seka.jpg) no-repeat; background-size: 100% auto; }
+.bd .page.qrCode.qr_yuanyang { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fruhnn-yuanyang.jpg) no-repeat; background-size: 100% auto; }
+.bd .page.qrCode.qr_yangyi { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fruhnn-yangyi.jpg) no-repeat; background-size: 100% auto; }
+.bd .page.qrCode.qr_diaoliao { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fruhnn-diaoliao.jpg) no-repeat; background-size: 100% auto; }
+.bd .page.qrCode.qr_kuanshi { background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fruhnn-kuanshi.jpg) no-repeat; background-size: 100% auto; }
 
 
 
@@ -276,7 +278,7 @@ table tr:last-child { broder-right: 1px solid #666666; broder-bottom: 1px solid 
 
 .bd .page .ul.diaoliao .li_box { margin: 0 auto; width: 100%; padding-top: 5px; }
 .bd .page .ul.diaoliao .li_text { float: left; width: 33.33%; height: 40px; line-height: 40px; text-align: left; }
-.bd .page .ul.diaoliao .li_text.tx { padding-left: 25px; width: calc(33.33% - 25px); background: url(../images/list_tx.png) no-repeat left center; }
+.bd .page .ul.diaoliao .li_text.tx { padding-left: 25px; width: calc(33.33% - 25px); background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Flist_tx.png) no-repeat left center; }
 
 .bd .page .ul.diaoliao .li_box.line { border-top:1px dashed #cecece; }
 .bd .page .ul.diaoliao .li_box.line .li_text { color: #888888; }
@@ -369,8 +371,8 @@ hr { background-color: #ececec; height: 1px; border: none; }
 
 
 /*返回顶部*/
-.goBack { position: fixed; bottom:20px; right:14px; width:40px; height:40px; cursor:pointer; display: none; background: url(../images/arrow.png); }
-.goBack span { width:40px; height: 40px; background: url(../images/goback.png); display:none; }
+.goBack { position: fixed; bottom:20px; right:14px; width:40px; height:40px; cursor:pointer; display: none; background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Farrow.png); }
+.goBack span { width:40px; height: 40px; background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fgoback.png); display:none; }
 .goBack:hover span { display:block; }
 .goBack:hover { background: none; }
 
@@ -385,10 +387,11 @@ hr { background-color: #ececec; height: 1px; border: none; }
 .bd .selected_card img,
 .bd .selected_card video { float: left; }
 
+
 .bd .preview { width: 800px; height: 600px; border:1px solid #ccc; display: none; position: fixed; z-index: 110; top:10px; background-color: #FFF; padding:10px; overflow-y: auto;  }
 .bd .wrap_imgDiv { margin-left: 80px; }
 .bd .form .picture { width: 150px; height: 150px; background-color: #FFF; overflow: hidden; }
 .bd .form .picture img,
 .bd .form .wrap_imgDiv .img_pic { width: 100%; height: 100%; overflow: hidden; }
 .bd .imgDiv { margin: 0 70px 40px 0px; display: inline-block; position: relative; background: #FFF;  width: 148px; height: 148px; float: left; padding: 0; }
-.bd .imgCancel { width: 16px; height: 16px; position: absolute; bottom: -25px; right: 5px; background: url(../images/del.png); }
+.bd .imgCancel { width: 16px; height: 16px; position: absolute; bottom: -25px; right: 5px; background: url(http://siwoo.oss-cn-hangzhou.aliyuncs.com/css%2Fimages%2Fdel.png); }
