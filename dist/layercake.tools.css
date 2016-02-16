@@ -67,6 +67,9 @@
 }
 
 .zoom-list .zoom-overflow {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
     display: inline-flex;
     height: 200px;
 }
