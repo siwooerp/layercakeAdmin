@@ -19,6 +19,16 @@ $(document).ready(function () {
         });
     });
 
+    /*********************************
+     * 当图片不存在时,显示另外图片
+     */
+    $('img').each(function(){
+        var $this = $(this);
+
+        $this.on('error', function(){
+            $this.prop('src', 'http://siwoo.oss-cn-hangzhou.aliyuncs.com/picnone.png');
+        });
+    });
 
     /**
      * 返回顶部

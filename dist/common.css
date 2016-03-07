@@ -247,6 +247,7 @@ table tr:last-child { broder-right: 1px solid #666; broder-bottom: 1px solid #66
 .check_field { position: relative; float: left; }
 
 .C_check_field { z-index: 10; position: absolute; top: 30px; left: 0px; border: 1px solid #249cf2; border-top: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; cursor: pointer; background: #fff; display: none; box-sizing: border-box; }
+
 .C_check_field .C_check_fields { padding: 0 10px; }
 
 .C_check_field .C_check_fields:hover { background: #249cf2; }
