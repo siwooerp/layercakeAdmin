@@ -330,7 +330,7 @@ table tr:last-child { broder-right: 1px solid #666; broder-bottom: 1px solid #66
 .bd .page .ul .submit { min-width: 102px; max-width: 219px; }
 
 .bd .page .ul .submit-center input[type="submit"],
-.bd .page .ul .submit-center input[type="button"] { margin: 4px auto; display: block; float: none; }
+.bd .page .ul .submit-center input[type="button"] { margin: 4px auto; padding: 0 10px; min-width: 80px; display: block; float: none; }
 
 .bd .page .ul.ul_sku input[type="text"] { text-align: center; }
 
