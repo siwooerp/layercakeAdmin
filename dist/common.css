@@ -256,12 +256,9 @@ table tr:last-child { broder-right: 1px solid #666; broder-bottom: 1px solid #66
 
 .bd .form .box span { color: #9d9fa3; margin-left: 20px; }
 
-
 /* textarea剩余字数 */
 
-.wordCount { position: relative; top: 0; left: 0; width: 600px; }
-
-.wordCount textarea { width: 100%; height: 100px; }
+.wordCount { display: inline-block; position: relative; top: 0; left: 0; }
 
 .wordCount .wordWrap { position: absolute; right: 6px; bottom: 6px; }
 

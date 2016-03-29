@@ -133,23 +133,46 @@ $(document).ready(function () {
 
     }
 
-/*
- * 剩余字数统计
- * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
- * <div class="textareaCount J_textareaCount">
-      <textarea rows="2" cols="3" name="arrivalDesc"></textarea>
-      <span class="wordWrap"><strong class="word">250</strong>/250</span>
-   </div>
- */
-(function ($){
-    $.fn.limitNum = function(textArea,numItem){
-        var max = numItem.text(),
-            curLength;
-        textArea.eq(0).prop("maxLength", max);
-        curLength = textArea.val().length;
-        numItem.text(max - curLength);
-        textArea.on('input propertychange', function(){
-            numItem.text(max - $(this).val().length);
+
+(function($){
+    /***************************
+     * 提示并限制textarea的输入字数
+     * 使用方式：
+     *         $('').limitNum({
+                countNum: textarea所需要的字数
+              });
+     */
+    var defaults = {
+        countNum : 20
+    };
+
+    $.fn.limitNum = function(options){
+        return this.each(function(){
+            var me = this;
+            me.opts = $.extend({}, defaults, options);
+
+            //container
+            var wordCount = $('<div></div>').addClass('wordCount');
+            //wordWrap word
+            var wordWrap = $('<span class="wordWrap"><span class="wordNum">'+ me.opts.countNum +'</span>/'+ me.opts.countNum +'</span>');
+            $(this).wrap(wordCount).after(wordWrap);
+            limitNum(this, me.opts);
+        });
+    };
+
+    function limitNum($this, meopts){
+        var max = meopts.countNum;
+        $($this).bind('input propertychange', function(){
+            var curLength = $(this).val().length,
+                wordNum = $(this).closest('.wordCount').find('.wordNum');
+            wordNum.text(max - curLength);
+            //console.log(curLength, max);
+            /* textArea的文本长度大于maxLength */
+            if(curLength > max){
+                /* 截断textArea的文本重新赋值 */
+                $(this).val($(this).val().substring(0, max));
+                wordNum.text(0);
+            }
         });
     }
 })(jQuery);
