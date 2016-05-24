@@ -77,6 +77,19 @@ $(document).ready(function () {
         });
     }
 
+
+    /**
+     * 防止重复提交
+     */
+    $("input:button,input:submit").on('click', function(){
+        var _this = $(this),
+            text = _this.val();
+        _this.prop('disabled', true).val('操作中...');
+        setTimeout(function(){
+            _this.prop('disabled', false).val(text);
+        }, 3000);
+    });
+
 });
 
 
