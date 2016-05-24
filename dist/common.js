@@ -18,6 +18,15 @@ $(document).ready(function () {
             maxImg: url_dns_erp + '/layercake/product/pic/' + _self.data('idx') + '?width=800'
         });
     });
+    // http://www.liblin.com.cn/layercake/original/getImgUrlForAll?id=215145&type=5&px=1000
+    $('.J_color_code_pic').each(function () {
+        var _self = $(this);
+        _self.prop('src', url_dns_erp + '/layercake/original/getImgUrlForAll?id=' + _self.data('idx') + '&type=5&px=' + _self.data('width'));
+        _self.hasClass('J_click_max') && _self.zoomPic({
+            maxImg: url_dns_erp + '/layercake/original/getImgUrlForAll?id=' + _self.data('idx') + '&type=5&px=1000'
+        });
+    });
+    
 
     /*********************************
      * 当图片不存在时,显示另外图片
