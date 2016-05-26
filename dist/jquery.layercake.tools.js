@@ -375,7 +375,7 @@
      * @param meOpt
      */
     function winOpenFn($this, meOpt) {
-        $($this).off('click').on('click', function (event) {
+        $($this).on('click', function (event) {
             event.stopPropagation();
             var _url = '';
             if ($.isFunction(meOpt.url)) {
